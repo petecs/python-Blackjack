@@ -2,6 +2,8 @@ from model import Card
 from model import Deck
 
 def main():
-    pass
+    test_deck = Deck()
+    test_deck.shuffle()
+    test_deck.print_deck()
 
 main()
