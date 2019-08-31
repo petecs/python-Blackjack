@@ -39,10 +39,11 @@ class Game:
                 
                 if self.__did_player_bust():
                     print("You busted! You lost!")
-                    dealer_won = True
+                    game_over = True
+                    continue
                 
                 if choice == "stay":
-                    pass
+                    self.__dealer_plays()
                 else:
                     continue
 
