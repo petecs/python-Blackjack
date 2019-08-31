@@ -4,6 +4,7 @@ from model.hand import Hand
 class Game:
     __BLACKJACK = 21
     __DEALER_STANDS = 17
+    
     def __init__(self):
         print()
 
@@ -171,4 +172,5 @@ class Game:
         if choice in ["yes", "y"]:
             return True
         else:
+            print("\nThanks for playing!")
             return False
