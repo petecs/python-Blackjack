@@ -13,4 +13,6 @@ def main():
     test_hand.add_card(test_deck.deal_card())
     test_hand.display_hand()
 
+    Game()
+
 main()

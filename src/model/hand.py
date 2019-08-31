@@ -1,7 +1,7 @@
 from model.card import Card
 
 class Hand:
-    __BUST_LIMIT = 21
+    __BLACKJACK = 21
     __FACE_VALUE = 10
     __ACE_VALUE_HIGH = 11
     __ACE_VALUE_LOW = 1
@@ -27,9 +27,8 @@ class Hand:
                 else:
                     self.__value += Hand.__FACE_VALUE
         
-        if ace_count > 0 and self.__value > Hand.__BUST_LIMIT:
-            #pylint: disable=unused-variable
-            for count in range(ace_count):
+        if ace_count > 0 and self.__value > Hand.__BLACKJACK:
+            for dummy_variable in range(ace_count):
                 if self.__value > 21:
                     self.__value -= 10
     
