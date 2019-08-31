@@ -40,8 +40,7 @@ class Game:
                     game_over = True
                     continue
             
-            if self.__did_dealer_bust():
-                pass
+            self.__display_final_result()
 
 
     def __deal_initial_cards(self):
@@ -97,14 +96,12 @@ class Game:
 
     def __did_player_bust(self):
         if self.__player_hand.get_value > Game.__BLACKJACK:
-            print("You busted! You lost!")
             return True
         else:
             return False
 
     def __did_dealer_bust(self):
         if self.__dealer_hand.get_value > Game.__BLACKJACK:
-            print("The dealer busted! You win!")
             return True
         else:
             return False  
@@ -115,3 +112,6 @@ class Game:
 
             if self.__did_dealer_bust():
                 break
+    
+    def __display_final_result(self):
+        pass
