@@ -23,8 +23,10 @@ class Game:
             while not game_over:
                 if not did_initial_blackjack_check:
                     did_initial_blackjack_check = True
+
+                    initial_blackjack = self.__check_for_initial_blackjack()
                     
-                    if self.__check_for_initial_blackjack():
+                    if initial_blackjack:
                         game_over = True
                         continue
                 
@@ -40,7 +42,10 @@ class Game:
                     game_over = True
                     continue
             
-            self.__display_final_result()
+            if not initial_blackjack:
+                self.__display_final_result()
+            
+
 
 
     def __deal_initial_cards(self):
@@ -114,4 +119,7 @@ class Game:
                 break
     
     def __display_final_result(self):
+        pass
+    
+    def __ask_to_play_again(self):
         pass
