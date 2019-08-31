@@ -44,3 +44,8 @@ class Hand:
             for index, card in enumerate(self.__cards):
                 print(f"Card #{index + 1}: {card}")
             print("hand value: ", self.get_value())
+    
+    def display_hand_no_hidden(self):
+        for index, card in enumerate(self.__cards):
+            print(f"Card #{index + 1}: {card}")
+        print("Hand value: ", self.get_value())

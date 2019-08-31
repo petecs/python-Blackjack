@@ -5,6 +5,8 @@ class Game:
     __BLACKJACK = 21
     __DEALER_STANDS = 17
     def __init__(self):
+        print()
+
         playing = True
 
         while playing:
@@ -16,6 +18,7 @@ class Game:
 
             self.__deal_initial_cards()
             self.__display_hands()
+            print()
 
             game_over = False
             did_initial_blackjack_check = False
@@ -41,10 +44,15 @@ class Game:
                 if self.__did_dealer_bust():
                     game_over = True
                     continue
+                
+                game_over = True
             
             if not initial_blackjack:
                 self.__display_final_result()
-            
+
+            playing = self.__ask_to_play_again()
+        
+        print()
 
 
 
@@ -77,19 +85,21 @@ class Game:
     
     def __show_blackjack_results(self, player_has_blackjack: bool, dealer_has_blackjack: bool):
         if player_has_blackjack and dealer_has_blackjack:
-            print("The player and dealer both have blackjack! Draw!")
+            print("The player and dealer both have blackjack! Draw!\n")
         elif player_has_blackjack:
-            print("You have blackjack! You win!")
+            print("You have blackjack! You win!\n")
         elif dealer_has_blackjack:
-            print("Dealer has blackjack! Dealer wins!")
+            print("Dealer reveals hand...")
+            self.__dealer_hand.display_hand_no_hidden()
+            print("Dealer has blackjack! Dealer wins!\n")
     
     def __player_plays(self):
         choice = ""
-        while choice not in ["s", "stay"]:
-            choice = input("Please choose [Hit / Stay]").lower()
+        while choice not in ["s", "stand"]:
+            choice = input("Please choose [Hit / Stand]: ").lower()
 
-            if choice not in ["h", "s", "hit", "stay"]:
-                print("Error: please enter 'hit' or 'stay' or (H/S) only")
+            if choice not in ["h", "s", "hit", "stand"]:
+                print("Error: please enter 'hit' or 'stand' or (H/S) only")
                 continue
             
             if choice == "hit" or choice == "h":
@@ -98,28 +108,67 @@ class Game:
             
                 if self.__did_player_bust():
                     break
+            
+            print()
 
     def __did_player_bust(self):
-        if self.__player_hand.get_value > Game.__BLACKJACK:
+        if self.__player_hand.get_value() > Game.__BLACKJACK:
             return True
         else:
             return False
 
     def __did_dealer_bust(self):
-        if self.__dealer_hand.get_value > Game.__BLACKJACK:
+        if self.__dealer_hand.get_value() > Game.__BLACKJACK:
             return True
         else:
             return False  
     
     def __dealer_plays(self):
-        while self.__dealer_hand.get_value < Game.__DEALER_STANDS:
+        while self.__dealer_hand.get_value() < Game.__DEALER_STANDS:
+            print("Dealer hits!")
             self.__dealer_hand.add_card(self.__deck.deal_card())
 
             if self.__did_dealer_bust():
                 break
+        
+        print("Dealer stands!\n")
     
     def __display_final_result(self):
-        pass
+        print("Final Results:\n")
+        if self.__did_player_bust():
+            print("You busted! You lost!\n")
+            return
+        if self.__did_dealer_bust():
+            print("The dealer busted! You win!\n")
+            return
+        
+        print("Your hand: ")
+        self.__player_hand.display_hand_no_hidden()
+        print("\nDealer's hand: ")
+        self.__dealer_hand.display_hand_no_hidden()
+
+        print(f"\nYour hand value: {self.__player_hand.get_value()}")
+        print(f"Dealer's hand value: {self.__dealer_hand.get_value()}")
+
+        if self.__player_hand.get_value() == self.__dealer_hand.get_value():
+            print("\nYour hand is equal to the dealer's hand! Draw!")
+        elif self.__player_hand.get_value() > self.__dealer_hand.get_value():
+            print("\nYour hand beats the dealer's hand! You win!")
+        else:
+            print("\nThe dealer's hand beats your hand! You lose!")
+        
+        print()
     
     def __ask_to_play_again(self):
-        pass
+        choice = ""
+
+        while choice not in ["yes", "y", "no", "n"]:
+            choice = input("Do you wish to play again?: ").lower()
+
+            if choice not in ["yes", "y", "no", "n"]:
+                print("Error: enter 'yes', 'y','no', or 'n'")
+        
+        if choice in ["yes", "y"]:
+            return True
+        else:
+            return False
