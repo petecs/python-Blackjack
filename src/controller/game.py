@@ -4,7 +4,7 @@ from model.hand import Hand
 class Game:
     __BLACKJACK = 21
     __DEALER_STANDS = 17
-    
+
     def __init__(self):
         print()
 
@@ -110,7 +110,7 @@ class Game:
                 if self.__did_player_bust():
                     break
             
-            print()
+        print()
 
     def __did_player_bust(self):
         if self.__player_hand.get_value() > Game.__BLACKJACK:
